@@ -8,3 +8,9 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+
+  .selected {
+    background-color: #0000ff;
+  }
+
+  
