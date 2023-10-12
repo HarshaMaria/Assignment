@@ -1,40 +1,50 @@
 import React, { useState, useEffect } from "react";
-import "./CountryCapitalGame.css";
 
-const CountryCapitalGame = () => {
-  const [data, setData] = useState({
-    "India": "New Delhi",
-    "Germany": "Berlin",
-    "USA": "Washington",
-    "France": "Paris",
-    "Australia": "Canberra",
-    "Canada": "Ottawa",
-  });
+const data = {
+  "India": "New Delhi",
+  "Germany": "Berlin",
+  "USA": "Washington",
+  "France": "Paris",
+  "Australia": "Canberra",
+  "Canada": "Ottawa",
+};
 
-  const shuffleData = (data) => {
-    return Object.entries(data).sort(() => Math.random() - 0.5);
-  };
+function shuffleObject(object) {
+  const keys = Object.keys(object); 
+  const shuffledKeys = shuffleArray(keys);
+  const shuffledValues = shuffleArray(keys.map(key => object[key]));
 
+  return shuffledKeys.reduce((result, key, index) => {
+    result[key] = shuffledValues[index];
+    return result;
+  }, {});
+}
+
+function shuffleArray(array) {
+  return array.slice().sort(() => Math.random() - 0.5);
+}
+
+const CountryCapital = () => {
   const [shuffledData, setShuffledData] = useState([]);
 
   useEffect(() => {
-    const shuffled = shuffleData(data);
-    setShuffledData(shuffled);
-  }, [data]);
+    setShuffledData(shuffleObject(data));
+  }, []);
+
+  const add = (selectedCountry, selectedCapital) => {
+  };
 
   return (
-    <div className="Capital">
-      <h1>Match Country with Capital Game</h1>
-      <div className="button-container">
-        {shuffledData.map(([country, capital]) => (
-          <div key={country} className="button-group">
-            <button className="country-button">{country}</button>
-            <button className="capital-button">{capital}</button>
-          </div>
-        ))}
-      </div>
+    <div className="countryCapital">
+      <h1>Country - Capital Matching Game</h1>
+      {Object.entries(shuffledData).map(([country, capital]) => (
+        <div key={country}>
+          <button onClick={() => add(country, capital)}>{country}</button>
+          <button onClick={() => add(country, capital)}>{capital}</button>
+        </div>
+      ))}
     </div>
   );
 };
 
-export default CountryCapitalGame;
+export default CountryCapital;
