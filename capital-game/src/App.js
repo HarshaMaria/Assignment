@@ -1,10 +1,10 @@
 import './App.css';
-import CountryCapitalGame from './Components/CapitalGame';
+import CountryCapitalGame from './Components/CountryCapitalGame';
 
 function App() {
   return (
     <div className="App">
-      <CapitalGame />
+      <CountryCapitalGame />
     </div>
   );
 }
